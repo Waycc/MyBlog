@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block about %}
+<div class="content-body">
+			<div class="container">
+				<div class="row">
+					<main class="col-md-12">
+						<h1 class="page-title">About Me</h1>
+						<article class="post">
+							<div class="entry-content clearfix">
+								<figure class="img-responsive-center">
+									<img class="img-responsive" src="{% static 'image/me1.jpg' %}" alt="Developer Image">
+								</figure>
+
+								<p>都说我是个有趣的人，其实，只有我自己知道，我是真的非常有趣</p>
+                                <p>本博客使用Python3.6 + Django2.0 + Bootstrap编写，部署在阿里云ECS。</p>
+                                <div class="height-40px"></div>
+								<h2 class="title text-center">Social</h2>
+								<ul class="social">
+                                    <li class="github"><a href="https://github.com/Waycc" target="_blank">Github</a></li>
+                                    <li class="weibo"><a href="http://120.78.160.107/tieba/login/" target="_blank">小贴吧</a></li>
+                                    <li class="wechat"><a href="#">微信:Wc_vvv</a></li>
+                                    <li class="email"><a href="#">Email:550974053@qq.com</a></li>
+                                </ul>
+							</div>
+						</article>
+					</main>
+				</div>
+			</div>
+		</div>
+
+
+{#返回顶部#}
+<div id="backtotop" style="width: 56px;">
+    <img src="{%  static 'image/backtotop.png' %}" alt="">
+</div>
+<script>
+    $(function(){
+        //当滚动条的位置处于距顶部300像素以下时，跳转链接出现，否则消失
+        $(function (){
+                $(window).scroll(function(){
+                if ($(window).scrollTop()>300){
+                    $("#backtotop").fadeIn(500);
+                }
+                else{
+                    $("#backtotop").fadeOut(500);
+                }
+            });
+
+                //当点击跳转链接后，回到页面顶部位置
+                $("#backtotop").click(function(){
+                $('body,html').animate({scrollTop:0},400);
+                    return false;
+                });
+        });
+    });
+</script>
+
+<footer id="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="copyright">© 2017 Halo Blog</p>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load tags %}
+{% block main %}
+    {#搜索功能错误信息#}
+    {% if error_msg %}
+        <p>{{ error_msg }}</p>
+    {% endif %}
+
+    {% for post in post_list %}
+        <article class="post post-{{ post.id }}">
+            <header  class="entry-header">
+                <h1 class="entry-title"  >
+                    <a href="{% url 'blog:article' post.id %}" style="color:	#259;">{{ post.title|safe }}</a>
+                </h1>
+                <div class="entry-meta"  >
+                    <span class="post-category"><a href="{% url 'blog:article' post.id %}">{{ post.category.name }}</a></span>
+                    <span class="post-date">
+                        <a href="{% url 'blog:article' post.id %}">
+                            <time class="entry-date" >
+                                {% format_time post.created_time %}
+                            </time>
+                        </a>
+                    </span>
+                    <span class="post-author"><a href="{% url 'blog:article' post.id %}">{{ post.author }}</a></span>
+                    {#评论#}
+                    <span class="comments-link">
+                        <a href="{% url 'blog:article' post.id %}#location_comment" name="location_comment">
+                            <span  class="glyphicon glyphicon-comment"></span>
+                            <span>{{ post.comment_set.count }}</span>
+                        </a>
+                    </span>
+                    {#阅读#}
+                    <span class="views-count">
+                        <a href="{% url 'blog:article' post.id %}">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span>{{post.view}}</span>
+                        </a></span>
+                </div>
+            </header>
+            <div class="entry-content clearfix">
+                <p>{{ post.excerpt|safe }}</p>
+                <div class="read-more cl-effect-14">
+                    <a href="{% url 'blog:article' post.id %}" class="more-link" >查看更多</a>
+                </div>
+            </div>
+        </article>
+    {% empty %}
+        <h2 class="no-post" style="text-align: center">暂时没有你要找的东西~</h2>
+    {% endfor %}
+
+
+
+    <div class="pagination">
+    {% if post_obj_list.has_previous %}
+    <li>
+      <a href="?p={{ post_obj_list.previous_page_number }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {% endif %}
+    {% return_page_ele post_obj_list %}
+    {% if post_obj_list.has_next %}
+    <li>
+      <a href="?p={{ post_obj_list.next_page_number }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    {% endif %}
+    </div>
+
+
+{% endblock %}
+
+
+
